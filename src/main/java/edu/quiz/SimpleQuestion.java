@@ -27,6 +27,6 @@ public class SimpleQuestion extends Question {
         if (hints.length == 0) {
             return questionText;
         }
-        return questionText + "\nPrompt：" + Arrays.toString(hints);
+        return questionText + "\nPrompt: " + Arrays.toString(hints);
     }
 }

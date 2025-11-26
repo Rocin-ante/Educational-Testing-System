@@ -1,0 +1,21 @@
+questionText,correctAnswer,hints
+What is 1 + 1?,2,Basic math;Integer result
+What is 2 + 3?,5,Addition;Single digit
+What is 10 - 4?,6,Subtraction;Positive result
+What is 3 * 3?,9,Multiplication;Square of 3
+What is 12 / 3?,4,Division;Whole number
+What is the capital of France?,Paris,European city;Starts with P
+What is the capital of Germany?,Berlin,European city;Starts with B
+What is the capital of Japan?,Tokyo,Asian city;Starts with T
+What is the capital of China?,Beijing,Asian city;Starts with B
+What is the capital of the United Kingdom?,London,European city;Famous for Big Ben
+How many days are there in a week?,7,Less than 10
+How many months are there in a year?,12,More than 10
+How many minutes are there in one hour?,60,Time unit
+What is the opposite of hot?,cold,Adjective;Temperature
+What is the opposite of big?,small,Adjective;Size
+What is H2O commonly called?,water,Liquid;For drinking
+Which planet do we live on?,Earth,Not Mars;Starts with E
+What is the largest ocean on Earth?,Pacific,Starts with P;Very large
+What do bees make?,honey,Sweet;Food
+What gas do humans need to breathe?,oxygen,Element;Starts with O
