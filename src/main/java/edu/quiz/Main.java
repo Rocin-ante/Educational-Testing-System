@@ -1,45 +1,52 @@
 package edu.quiz;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-/* https://github.com/Rocin-ante/Educational-Testing-System.git */
 /**
- * Simple console testing is used to verify whether the core logic of Task 2 is working properly.
+ * This main method is ONLY used for simple console testing
+ * to verify that the core logic (Question, Quiz, Feedback) works correctly.
+ * It is NOT part of the GUI flow. The real application entry point
+ * for end users is QuizGuiApp.
  */
 public class Main {
+
     public static void main(String[] args) {
 
         QuestionFactory factory = new QuestionFactory();
         Quiz quiz = new Quiz();
 
-        // 1. Simple Question
+        // 1. Simple question (console test)
         quiz.addQuestion(factory.createSimpleQuestion(
-                "1 + 1 = ?",
+                "What is 1 + 1?",
                 "2",
-                new String[]{"Basic addition", "Note that it is an integer"}
+                new String[]{"Basic arithmetic", "Integer result"}
         ));
 
-        // 2. MCQ
-        Map<String, String> opts = new LinkedHashMap<>();
-        opts.put("A", "Earth");
-        opts.put("B", "Mars");
-        opts.put("C", "Jupiter");
+        // 2. Multiple-choice question (console test)
+        Map<String, String> options = new LinkedHashMap<>();
+        options.put("A", "Earth");
+        options.put("B", "Mars");
+        options.put("C", "Jupiter");
+        options.put("D", "Saturn");
 
         quiz.addQuestion(factory.createMultipleChoiceQuestion(
-                "Which of the following is Mars？",
-                opts,
+                "Which planet is known as the Red Planet? (Enter A/B/C/D)",
+                options,
                 "B"
         ));
 
-        // 3. API Question (using fake data first)
+        // 3. API-style question (console test placeholder)
         quiz.addQuestion(factory.createApiQuestion(
-                "{ \"raw\": \"example\" }",
-                "Example API question: Is the answer A or B?",
-                "A",
+                "{ \"source\": \"demo\" }",
+                "Sample API question: correct answer is C.",
+                "C",
                 "medium"
         ));
 
-        // Simulate student answers
+        // Simulated student answers for console test
         List<String> answers = Arrays.asList("2", "B", "C");
 
         int score = quiz.calculateScore(answers);
@@ -48,7 +55,7 @@ public class Main {
         Feedback feedback = new Feedback(score, quiz.getTotalQuestions(), wrong);
 
         System.out.println(feedback.generateScoreFeedback());
-        System.out.println("Performance level：" + feedback.getPerformanceLevel());
+        System.out.println("Performance level: " + feedback.getPerformanceLevel());
         System.out.println(feedback.generateDetailedFeedback());
     }
 }

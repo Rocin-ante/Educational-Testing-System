@@ -71,6 +71,27 @@ public class Quiz {
         return wrong;
     }
 
+    /**
+     * Return the student's answers corresponding to the incorrect questions.
+     * The order matches getIncorrectQuestions(...).
+     */
+    public List<String> getIncorrectStudentAnswers(List<String> answers) {
+        List<String> result = new ArrayList<>();
+
+        if (answers == null) {
+            return result;
+        }
+
+        for (int i = 0; i < answers.size() && i < questions.size(); i++) {
+            Question q = questions.get(i);
+            String answer = answers.get(i);
+            if (!q.isCorrect(answer)) {
+                result.add(answer);
+            }
+        }
+        return result;
+    }
+
     public int getTotalQuestions() {
         return questions.size();
     }
