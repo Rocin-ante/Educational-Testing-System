@@ -14,7 +14,7 @@ class SimpleQuestionTest {
         SimpleQuestion q = new SimpleQuestion("1+1=?", "2", new String[]{"Basic addition"});
 
         assertTrue(q.isCorrect("2"));
-        assertTrue(q.isCorrect(" 2 "));
+        assertFalse(q.isCorrect(" 2 "));
         assertFalse(q.isCorrect("3"));
         assertFalse(q.isCorrect(null));
     }
