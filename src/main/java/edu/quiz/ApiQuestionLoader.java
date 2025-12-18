@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Loads questions from an external API (Open Trivia DB).
- * Converts the JSON response into ApiQuestion objects.
+ * Loads questions from the Open Trivia Database API.
+ * Handles JSON parsing and converts API results into ApiQuestion objects.
  */
 public class ApiQuestionLoader {
 
@@ -19,14 +19,15 @@ public class ApiQuestionLoader {
     }
 
     /**
-     * Fetch API questions.
-     * @param count Number of questions to fetch.
-     * @return List of ApiQuestion objects.
+     * Fetches multiple-choice questions from Open Trivia DB.
+     * @param count Number of questions to retrieve
+     * @return List of Question objects created from API data
      */
     public List<Question> fetchApiQuestions(int count) {
         List<Question> results = new ArrayList<>();
 
         try {
+            // URL for multiple choice questions
             String url = "https://opentdb.com/api.php?amount=" + count + "&type=multiple";
 
             HttpClient client = HttpClient.newHttpClient();
@@ -47,15 +48,24 @@ public class ApiQuestionLoader {
             for (JsonElement item : items) {
                 JsonObject obj = item.getAsJsonObject();
 
-                String questionText = obj.get("question").getAsString();
-                String correctAnswer = obj.get("correct_answer").getAsString();
+                String questionText = htmlDecode(obj.get("question").getAsString());
+                String correctAnswer = htmlDecode(obj.get("correct_answer").getAsString());
                 String difficulty = obj.get("difficulty").getAsString();
 
-                // Convert to ApiQuestion object
+                // --- NEW CODE: Extract Incorrect Answers ---
+                List<String> incorrectAnswers = new ArrayList<>();
+                JsonArray incArr = obj.getAsJsonArray("incorrect_answers");
+                for (JsonElement el : incArr) {
+                    incorrectAnswers.add(htmlDecode(el.getAsString()));
+                }
+                // -------------------------------------------
+
+                // Create ApiQuestion via Factory (Now passing incorrectAnswers)
                 Question q = factory.createApiQuestion(
-                        json,               // raw API data
+                        json,
                         questionText,
                         correctAnswer,
+                        incorrectAnswers, // <--- Added this parameter
                         difficulty
                 );
 
@@ -64,8 +74,21 @@ public class ApiQuestionLoader {
 
         } catch (Exception e) {
             System.out.println("API ERROR: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return results;
+    }
+
+    /** Simple HTML entity decoder */
+    private String htmlDecode(String text) {
+        if (text == null) return "";
+        return text.replace("&quot;", "\"")
+                .replace("&#039;", "'")
+                .replace("&amp;", "&")
+                .replace("&lt;", "<")
+                .replace("&gt;", ">")
+                .replace("&eacute;", "é")
+                .replace("&rsquo;", "'");
     }
 }

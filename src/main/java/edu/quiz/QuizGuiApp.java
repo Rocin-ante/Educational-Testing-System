@@ -93,6 +93,9 @@ public class QuizGuiApp extends JFrame {
 
 
         }
+        int apiCount = apiQuestions.size();
+        JLabel apiInfo = new JLabel("Loaded " + apiCount + " API questions");
+
     }
 
     /**
@@ -312,4 +315,5 @@ public class QuizGuiApp extends JFrame {
             app.setVisible(true);
         });
     }
+
 }

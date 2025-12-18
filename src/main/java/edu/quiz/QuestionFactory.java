@@ -1,11 +1,10 @@
 package edu.quiz;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * Factory Pattern, which centrally manages the creation logic of problems.
- * Quiz only needs to call the factory method to obtain the Question object,
- * No need to understand the construction details of specific subclasses, reducing coupling.
  */
 public class QuestionFactory {
 
@@ -21,10 +20,16 @@ public class QuestionFactory {
         return new MultipleChoiceQuestion(text, options, correctKey);
     }
 
+    /**
+     * UPDATED: Accepts List<String> for incorrect answers.
+     * This fixes the "String cannot be converted to List" error.
+     */
     public Question createApiQuestion(String rawData,
                                       String text,
                                       String correct,
+                                      List<String> incorrectAnswers, // <--- New parameter
                                       String difficulty) {
-        return new ApiQuestion(rawData, text, correct, difficulty);
+        // Now it matches the new ApiQuestion constructor
+        return new ApiQuestion(rawData, text, correct, incorrectAnswers, difficulty);
     }
 }

@@ -1,3 +1,4 @@
+
 package edu.quiz;
 
 import java.util.Arrays;
@@ -38,12 +39,13 @@ public class Main {
                 "B"
         ));
 
-        // 3. API-style question (console test placeholder)
+        // 3. API-style question (FIXED: Now provides incorrect answers)
         quiz.addQuestion(factory.createApiQuestion(
-                "{ \"source\": \"demo\" }",
-                "Sample API question: correct answer is C.",
-                "C",
-                "medium"
+                "{ \"source\": \"demo\" }",            // Raw Data
+                "Sample API question: correct answer is C.", // Text
+                "C",                                   // Correct Answer
+                Arrays.asList("A", "B", "D"),          // Incorrect Answers (NEW LIST)
+                "medium"                               // Difficulty
         ));
 
         // Simulated student answers for console test

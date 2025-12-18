@@ -95,4 +95,13 @@ public class Quiz {
     public int getTotalQuestions() {
         return questions.size();
     }
+    public void loadApiQuestions(int count) {
+        QuestionFactory factory = new QuestionFactory();
+        ApiQuestionLoader loader = new ApiQuestionLoader(factory);
+        List<Question> apiQs = loader.fetchApiQuestions(count);
+        questions.addAll(apiQs);
+
+        System.out.println("Loaded " + apiQs.size() + " API questions into Quiz.");
+    }
+
 }

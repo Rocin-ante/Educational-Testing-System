@@ -36,4 +36,12 @@ public abstract class Question {
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+
+    /**
+     * Checks if this question came from an API.
+     * Default is false.
+     */
+    public boolean isApiQuestion() {
+        return false;
+    }
 }
